@@ -8,7 +8,7 @@
 		<version>2.1.8.BUILD-SNAPSHOT</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>uz.barrier</groupId>
+	<groupId>uz</groupId>
 	<artifactId>barrier-manager</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>barrier-manager</name>
@@ -59,6 +59,14 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>12</source>
+					<target>12</target>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
