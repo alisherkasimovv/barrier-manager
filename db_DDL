@@ -1,0 +1,46 @@
+create table user_list
+(
+	ul_id serial not null
+		constraint user_list_pk
+			primary key,
+	ul_username varchar(128) not null,
+	ul_password varchar(128),
+	ul_role varchar(128),
+	ul_registered timestamp,
+	ul_deleted boolean default false
+);
+
+alter table user_list owner to postgres;
+
+create unique index user_list_ld_username_uindex
+	on user_list (ul_username);
+
+create unique index user_list_lt_id_uindex
+	on user_list (ul_id);
+
+create table detection_settings
+(
+	ds_id serial not null
+		constraint detection_settings_pk
+			primary key,
+	ds_country varchar(10) not null,
+	ds_configs varchar(512),
+	ds_runtime varchar(512)
+);
+
+alter table detection_settings owner to postgres;
+
+create table detected_cars
+(
+	dc_id serial not null
+		constraint detected_cars_pk
+			primary key,
+	dc_plate varchar(10) not null,
+	dc_recognizing_time double precision,
+	dc_confidence double precision,
+	dc_picture varchar(512),
+	dc_deleted boolean default false
+);
+
+alter table detected_cars owner to postgres;
+
