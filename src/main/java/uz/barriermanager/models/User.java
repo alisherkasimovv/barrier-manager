@@ -13,7 +13,7 @@ import java.sql.Timestamp;
  * User class.
  *
  * @author Alisher Kasimov
- * @version 0.1.0012
+ * @version 0.1.0035
  */
 @Entity
 @Table(name = "user_list")

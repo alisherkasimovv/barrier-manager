@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" th:href="@{/webjars/AdminLTE/2.4.0/bower_components/bootstrap/dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/AdminLTE/2.4.0/bower_components/font-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/AdminLTE/2.4.0/bower_components/Ionicons/css/ionicons.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/AdminLTE/2.4.0/dist/css/AdminLTE.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/AdminLTE/2.4.0/dist/css/skins/skin-blue.min.css}">
+</head>
+<body ng-app="barrierManager" class="skin-blue sidebar-mini" style="height: auto; min-height: 100%;">
+<div th:insert="~{partials/header :: section__header}"></div>
+<div th:insert="~{partials/sidebar :: section__sidebar}"></div>
+
+<div ng-controller="UserController" class="content-wrapper" style="min-height: 1135.8px;">
+    <div th:insert="~{partials/content-header :: section__content-header}"></div>
+    <!-- Main content -->
+    <section class="content">
+        <a class="btn btn-primary" href="/users/create">Create new user</a>
+
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Users in DB</h3>
+
+                    <div class="box-tools">
+                        <div class="input-group input-group-sm hidden-xs" style="width: 150px;">
+                            <input type="text" name="table_search" class="form-control pull-right" placeholder="Search" ng-model="searchItem">
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover">
+                        <tbody><tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Role</th>
+                            <th>First name</th>
+                            <th>Second name</th>
+                            <th>Actions</th>
+                        </tr>
+                        <tr ng-repeat="user in users | filter : searchItem">
+                            <td>{{user.id}}</td>
+                            <td>{{user.username}}</td>
+                            <td>{{user.role}}</td>
+                            <td>{{user.firstname}}</td>
+                            <td>{{user.secondname}}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a class="btn btn-info" href="/users/edit/{{user.id}}"><i class="fa fa-pencil-square-o"></i></a>
+                                    <a class="btn btn-info" href="/users/delete/{{user.id}}"><i class="fa fa-trash-o"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+
+
+        </div>
+
+    </section>
+    <!-- /.content -->
+</div>
+
+<div th:insert="~{partials/footer :: section__footer}"></div>
+<div th:insert="~{partials/scripts :: section__scripts}"></div>
+</body>
+</html>

@@ -14,7 +14,7 @@ import javax.persistence.Table;
  * Settings object for OpenALPR
  *
  * @author Alisher Kasimov
- * @version 0.1.0012
+ * @version 0.1.0035
  */
 @Entity
 @Table(name = "detection_settings")

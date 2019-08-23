@@ -1,6 +1,7 @@
 package uz.barriermanager.services.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import uz.barriermanager.models.Car;
 import uz.barriermanager.repositories.CarRepository;
 import uz.barriermanager.services.dao.interfaces.CarDAO;
@@ -11,10 +12,11 @@ import java.util.List;
  * Implementation of CarDAO interface.
  *
  * @author Alisher Kasimov
- * @version 0.1.0012
+ * @version 0.1.0035
  */
 public class CarDAOImpl implements CarDAO {
     @Autowired
+    @Qualifier("CarRepository")
     private CarRepository repository;
 
     @Override

@@ -9,7 +9,7 @@ import uz.barriermanager.services.dao.interfaces.DetectionSettingsDAO;
  * Implementation of DetectionSettingsDAO interface.
  *
  * @author Alisher Kasimov
- * @version 0.1.0012
+ * @version 0.1.0035
  */
 public class DetectionSettingsDAOImpl implements DetectionSettingsDAO {
     @Autowired
@@ -17,7 +17,7 @@ public class DetectionSettingsDAOImpl implements DetectionSettingsDAO {
 
     @Override
     public DetectionSettings getSettings() {
-        return repository.getAllById(0);
+        return repository.findById(1);
     }
 
     @Override
@@ -26,11 +26,11 @@ public class DetectionSettingsDAOImpl implements DetectionSettingsDAO {
     }
 
     @Override
-    public DetectionSettings editSettings(DetectionSettings settings) {
-        DetectionSettings temp = repository.getAllById(0);
+    public void editSettings(DetectionSettings settings) {
+        DetectionSettings temp = repository.findById(1);
         temp.setCountry(settings.getCountry());
         temp.setConfigs(settings.getConfigs());
         temp.setRuntime(settings.getRuntime());
-        return repository.save(temp);
+        repository.save(temp);
     }
 }
