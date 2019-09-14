@@ -11,7 +11,7 @@ import java.util.List;
  * Car repository.
  *
  * @author Alisher Kasimov
- * @version 0.1.0035
+ * @version 0.1.0046
  */
 @Service
 @Component("CarRepository")
@@ -19,5 +19,6 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
     List<Car> findAllByDeletedIsFalse();
     List<Car> findAllByDeletedIsTrue();
     Car getById(int id);
+    Car findCarByPlate(String plate);
     int countAllByDeletedFalse();
 }

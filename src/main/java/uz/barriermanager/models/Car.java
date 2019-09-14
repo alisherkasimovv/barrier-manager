@@ -12,7 +12,7 @@ import javax.persistence.*;
  * Car class.
  *
  * @author Alisher Kasimov
- * @version 0.1.0035
+ * @version 0.1.0046
  */
 @Entity
 @Table(name = "detected_cars")
@@ -42,6 +42,15 @@ public class Car {
 
     @Column(name = "dc_deleted")
     private boolean deleted = false;
+
+    @Column(name = "dc_arrival")
+    private String dateArrival;
+
+    @Column(name = "dc_departure")
+    private String dateDeparture;
+
+    @Column(name = "dc_time_spent")
+    private long timeSpent;
 }
 
 

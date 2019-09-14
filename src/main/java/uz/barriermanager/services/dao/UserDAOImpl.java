@@ -11,7 +11,7 @@ import java.util.List;
  * User DAO implementation.
  *
  * @author Alisher Kasimov
- * @version 0.1.0035
+ * @version 0.1.0046
  */
 public class UserDAOImpl implements UserDAO {
     @Autowired
@@ -42,9 +42,6 @@ public class UserDAOImpl implements UserDAO {
         User temp = repository.getById(user.getId());
         temp.setUsername(user.getUsername());
         temp.setPassword(user.getUsername());
-        temp.setFirstname(user.getFirstname());
-        temp.setSecondname(user.getSecondname());
-        temp.setPosition(user.getPosition());
         return repository.save(temp);
     }
 

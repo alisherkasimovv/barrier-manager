@@ -20,7 +20,7 @@ import javax.annotation.PostConstruct;
  * Spring Security configuration class.
  *
  * @author Alisher Kasimov
- * @version 0.1.0035
+ * @version 0.1.0046
  */
 @Configuration
 @EnableWebSecurity

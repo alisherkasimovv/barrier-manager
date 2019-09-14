@@ -39,17 +39,13 @@
                             <th>ID</th>
                             <th>Username</th>
                             <th>Role</th>
-                            <th>First name</th>
-                            <th>Second name</th>
                             <th>Actions</th>
                         </tr>
                         <tr ng-repeat="user in users | filter : searchItem">
                             <td>{{user.id}}</td>
                             <td>{{user.username}}</td>
                             <td>{{user.role}}</td>
-                            <td>{{user.firstname}}</td>
-                            <td>{{user.secondname}}</td>
-                            <td>
+                            <td style="min-width: 110px;">
                                 <div class="btn-group">
                                     <a class="btn btn-info" href="/users/edit/{{user.id}}"><i class="fa fa-pencil-square-o"></i></a>
                                     <a class="btn btn-info" href="/users/delete/{{user.id}}"><i class="fa fa-trash-o"></i></a>

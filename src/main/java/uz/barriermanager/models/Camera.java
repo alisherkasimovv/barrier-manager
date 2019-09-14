@@ -11,28 +11,26 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Settings object for OpenALPR
+ * Car DAO.
  *
  * @author Alisher Kasimov
- * @version 0.1.0035
+ * @version 0.1.0046
  */
 @Entity
-@Table(name = "detection_settings")
+@Table(name = "cameras")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DetectionSettings {
+public class Camera {
+
     @Id
-    @Column(name = "ds_id", columnDefinition = "serial")
+    @Column(name = "c_id", columnDefinition = "serial")
     private int id;
 
-    @Column(name = "ds_country", length = 10)
-    private String country;
+    @Column(name = "c_name")
+    private String name;
 
-    @Column(name = "ds_configs", length = 512)
-    private String configs;
-
-    @Column(name = "ds_runtime", length = 512)
-    private String runtime;
+    @Column(name = "c_url")
+    private String url;
 }

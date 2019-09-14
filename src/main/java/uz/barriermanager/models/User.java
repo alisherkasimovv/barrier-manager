@@ -13,7 +13,7 @@ import java.sql.Timestamp;
  * User class.
  *
  * @author Alisher Kasimov
- * @version 0.1.0035
+ * @version 0.1.0046
  */
 @Entity
 @Table(name = "user_list")
@@ -42,13 +42,4 @@ public class User {
 
     @Column(name = "ul_deleted")
     private boolean deleted;
-
-    @Column(name = "ul_first_name")
-    private String firstname;
-
-    @Column(name = "ul_second_name")
-    private String secondname;
-
-    @Column(name = "ul_position")
-    private String position;
 }

@@ -40,6 +40,18 @@
                             <td>Runtime data location</td>
                             <td>{{settings.runtime}}</td>
                         </tr>
+                        <tr>
+                            <td>Shot count</td>
+                            <td>{{settings.streamShotCount}}</td>
+                        </tr>
+                        <tr>
+                            <td>Interval between shots</td>
+                            <td>{{settings.streamShotIntervalMs}}</td>
+                        </tr>
+                        <tr>
+                            <td>Price for hour</td>
+                            <td>{{ settings.price }}</td>
+                        </tr>
                     </table>
                 </div>
             </div>
@@ -64,6 +76,18 @@
                         <div class="form-group">
                             <label for="runtime">Path to <code>runtime_data</code> folder</label>
                             <input type="text" class="form-control" id="runtime" placeholder="Runtime directory" ng-model="detect.runtime">
+                        </div>
+                        <div class="form-group">
+                            <label for="streamShotCount">Shot count</label>
+                            <input type="text" class="form-control" id="streamShotCount" placeholder="Count of shots to be performed" ng-model="detect.streamShotCount">
+                        </div>
+                        <div class="form-group">
+                            <label for="streamShotIntervalMs">Interval between shots</label>
+                            <input type="text" class="form-control" id="streamShotIntervalMs" placeholder="Interval between shots in ms" ng-model="detect.streamShotIntervalMs">
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price for one hour parking</label>
+                            <input type="text" class="form-control" id="price" placeholder="Price for one hour" ng-model="detect.price">
                         </div>
                     </div>
                     <!-- /.box-body -->

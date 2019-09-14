@@ -6,13 +6,16 @@ import uz.barriermanager.models.Car;
 import uz.barriermanager.repositories.CarRepository;
 import uz.barriermanager.services.dao.interfaces.CarDAO;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 /**
  * Implementation of CarDAO interface.
  *
  * @author Alisher Kasimov
- * @version 0.1.0035
+ * @version 0.1.0046
  */
 public class CarDAOImpl implements CarDAO {
     @Autowired
@@ -32,6 +35,30 @@ public class CarDAOImpl implements CarDAO {
     @Override
     public Car getOneCar(Integer id) {
         return repository.getById(id);
+    }
+
+    @Override
+    public Car getOneCar(Car car) {
+        return repository.findCarByPlate(car.getPlate());
+    }
+
+    @Override
+    public void saveArrival(Car car) {
+        car.setDateArrival(LocalTime.now().toString());
+        saveCar(car);
+    }
+
+    @Override
+    public void saveDeparture(Car car) {
+        Car temp = getOneCar(car);
+        temp.setDateDeparture(LocalTime.now().toString());
+        temp.setTimeSpent(
+                ChronoUnit.MINUTES.between(
+                        LocalDateTime.parse(temp.getDateArrival()),
+                        LocalDateTime.parse(temp.getDateDeparture()))
+        );
+
+        saveCar(temp);
     }
 
     @Override

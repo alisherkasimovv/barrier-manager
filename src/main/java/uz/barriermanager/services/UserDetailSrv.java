@@ -15,7 +15,7 @@ import uz.barriermanager.repositories.UserRepository;
  * User Details service.
  *
  * @author Alisher Kasimov
- * @version 0.1.0035
+ * @version 0.1.0046
  */
 @Service
 public class UserDetailSrv implements UserDetailsService {

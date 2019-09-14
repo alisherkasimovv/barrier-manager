@@ -12,7 +12,7 @@ import java.util.Collections;
  * User principal class.
  *
  * @author Alisher Kasimov
- * @version 0.1.0035
+ * @version 0.1.0046
  */
 @Component("user-principal")
 public class UserPrincipal implements UserDetails {
@@ -56,17 +56,4 @@ public class UserPrincipal implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-    public String getFullUsername() {
-        return this.user.getFirstname() + " " + this.user.getSecondname();
-    }
-
-    public String getFirstname() {
-        return this.user.getFirstname();
-    }
-
-    public String getSecondname() {
-        return this.user.getSecondname();
-    }
 }
-
