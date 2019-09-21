@@ -6,7 +6,7 @@ import uz.barriermanager.models.Settings;
  * Detection Settings' DAO.
  *
  * @author Alisher Kasimov
- * @version 0.1.0046
+ * @version 0.1.0047
  */
 //@Component("detect-settings-dao")
 public interface SettingsDAO {

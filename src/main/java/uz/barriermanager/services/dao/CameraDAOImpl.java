@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Implementation of CameraDAO interface.
  *
  * @author Alisher Kasimov
- * @version 0.1.0046
+ * @version 0.1.0047
  */
 public class CameraDAOImpl implements CameraDAO {
     @Autowired
@@ -35,7 +35,7 @@ public class CameraDAOImpl implements CameraDAO {
     }
 
     @Override
-    public void editCar(Camera camera) {
+    public void editCamera(Camera camera) {
         Camera temp = repository.getById(camera.getId());
 
         temp.setName(camera.getName());

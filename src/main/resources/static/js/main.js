@@ -68,3 +68,34 @@ app.controller('UserController', function ($scope, $http) {
         $scope.users = response.data;
     });
 });
+
+app.controller('DetectionController', function ($scope, $http) {
+    $scope.getAllCars = function () {
+        $http({
+            method: "GET",
+            url: "/recognition/get-detected"
+        }).then(function (response) {
+            $scope.cars = response.data;
+        });
+    };
+
+
+
+    $scope.startStream = function () {
+        $http({
+            method: "GET",
+            url: "/recognition/start-streaming"
+        }).then(function (response) {
+            $scope.message = response.data;
+        });
+    };
+
+    $scope.startDetect = function () {
+        $http({
+            method: "GET",
+            url: "/recognition/detect-car"
+        }).then(function (response) {
+            $scope.cars = response.data;
+        });
+    };
+});

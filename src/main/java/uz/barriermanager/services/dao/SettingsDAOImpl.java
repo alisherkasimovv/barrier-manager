@@ -9,7 +9,7 @@ import uz.barriermanager.services.dao.interfaces.SettingsDAO;
  * Implementation of SettingsDAO interface.
  *
  * @author Alisher Kasimov
- * @version 0.1.0046
+ * @version 0.1.0047
  */
 public class SettingsDAOImpl implements SettingsDAO {
     @Autowired

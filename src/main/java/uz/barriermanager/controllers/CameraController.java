@@ -18,7 +18,7 @@ import java.util.List;
  * Camera controller class.
  *
  * @author Alisher Kasimov
- * @version 0.1.0046
+ * @version 0.1.0047
  */
 @Controller
 @RequestMapping("/camera")
@@ -44,7 +44,7 @@ public class CameraController {
 
     @PostMapping(value = "/update")
     public ResponseEntity<List<Camera>> updateCamera(@Valid @RequestBody Camera camera) {
-        cameraDAO.editCar(camera);
+        cameraDAO.editCamera(camera);
         return new ResponseEntity<>(cameraDAO.getAll(), HttpStatus.OK);
     }
 

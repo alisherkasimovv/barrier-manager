@@ -10,7 +10,7 @@ import java.util.List;
  * User repository.
  *
  * @author Alisher Kasimov
- * @version 0.1.0046
+ * @version 0.1.0047
  */
 @Component("user-repository")
 public interface UserRepository extends JpaRepository<User, Integer> {

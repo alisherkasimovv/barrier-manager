@@ -4,6 +4,8 @@ import com.openalpr.jni.Alpr;
 import com.openalpr.jni.AlprException;
 import com.openalpr.jni.AlprPlateResult;
 import com.openalpr.jni.AlprResults;
+import uz.barriermanager.models.Car;
+import uz.barriermanager.models.Settings;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,41 +17,36 @@ import java.nio.file.Paths;
  * While PlateDetectorModule class constructed
  *
  * @author Alisher Kasimov
- * @version 0.1.0046
+ * @version 0.1.0047
  */
 public class PlateDetectorModule {
     private Alpr alpr;
 
-    private String detectedPlate;
-    private float confidence;
-    private float processingTime;
-
     /**
      * PlateDetectorModule constructor.
-     * @param country get string of country code.
-     * @param configs path to .conf file.
-     * @param runtime path to runtime_data directory.
-     * @param detectCount number of detections.
+     *
+     * @param settings Settings for OpenALPR module.
      */
-    public PlateDetectorModule(String country, String configs, String runtime, int detectCount) {
-        alpr = new Alpr(country, configs, runtime);
-        alpr.setTopN(detectCount);
-        alpr.setDefaultRegion("wa");
+    public PlateDetectorModule(Settings settings) {
+        alpr = new Alpr(settings.getCountry(), settings.getConfigs(), settings.getRuntime());
+        alpr.setTopN(10);
+        alpr.setDefaultRegion("eu");
     }
 
-    public void startDetecting(String plateImage) {
+    public Car startDetecting(String plateImage) {
+        Car car = new Car();
         try {
             Path path = Paths.get(plateImage);
             byte[] imageData = Files.readAllBytes(path);
             AlprResults results = alpr.recognize(imageData);
 
-            processingTime = results.getTotalProcessingTimeMs();
+            car.setRecognizingTime(results.getTotalProcessingTimeMs());
 
             for (AlprPlateResult result : results.getPlates()) {
-                detectedPlate = result.getBestPlate().getCharacters();
-                confidence = result.getBestPlate().getOverallConfidence();
+                car.setPlate(result.getBestPlate().getCharacters());
+                car.setConfidence(result.getBestPlate().getOverallConfidence());
             }
-
+            car.setPicture(plateImage);
         } catch (IOException e) {
             System.out.println("There was an error while reading bytes from path\n");
             e.printStackTrace();
@@ -57,6 +54,8 @@ public class PlateDetectorModule {
             System.out.println("There was an error while recognizing plateImage\n");
             e.printStackTrace();
         }
+
+        return car;
     }
 
     /**
@@ -65,17 +64,5 @@ public class PlateDetectorModule {
      */
     public void stopAlpr() {
         alpr.unload();
-    }
-
-    public String getDetectedPlate() {
-        return detectedPlate;
-    }
-
-    public float getConfidence() {
-        return confidence;
-    }
-
-    public float getProcessingTime() {
-        return processingTime;
     }
 }

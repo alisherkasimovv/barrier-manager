@@ -7,7 +7,7 @@ import org.opencv.core.MatOfByte;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.videoio.VideoCapture;
 import org.springframework.beans.factory.annotation.Autowired;
-import uz.barriermanager.models.Car;
+import org.springframework.stereotype.Controller;
 import uz.barriermanager.models.Settings;
 import uz.barriermanager.services.dao.interfaces.CarDAO;
 
@@ -23,40 +23,28 @@ import java.util.ArrayList;
  * Class works for capturing from stream and returning ImageBuffer.
  *
  * @author Alisher Kasimov
- * @version 0.1.0046
+ * @version 0.1.0047
  */
 public class VideoStreamerModule {
-    @Autowired
-    CarDAO carDAO;
 
     private Mat mat;
     private BufferedImage bufferedImage;
     private VideoCapture capture;
 
     private String url;
+
     private ArrayList<String> frames;
-    private PlateDetectorModule detectorModule;
 
     private boolean continueStream;
     private boolean isCapturing = true;
     private int captureCount;
     private int shotInterval;
 
-    /*
-     * TODO: captureCount and shotInterval should be retrieved from DB.
-     * TODO: Maybe stream url could be retrieved from DB, because camera's IP in some sense will be same.
-     */
-
-    public VideoStreamerModule() {
-    }
-
     public VideoStreamerModule(String url, Settings settings) {
         this.url = url;
 
-//        this.detectorModule = new PlateDetectorModule();
-
-        this.captureCount = 5;
-        this.shotInterval = 10000;
+        this.captureCount = settings.getStreamShotCount();
+        this.shotInterval = settings.getStreamShotIntervalMs();
 
         continueStream = true;
     }
@@ -80,13 +68,17 @@ public class VideoStreamerModule {
         }
     }
 
+    /**
+     * Method starts new SaveFrame thread for capturing.
+     * Sleeps 2000ms before interrupting SaveFrame thread instance.
+     */
     public void startDetecting() {
         new SaveFrame().start();
 
-        if (!isCapturing) {
-            new DetectFrame().start();
-            DetectFrame.currentThread().interrupt();
-            isCapturing = true;
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
         SaveFrame.currentThread().interrupt();
@@ -103,7 +95,11 @@ public class VideoStreamerModule {
             for (int i = 0; i < captureCount; i++) {
                 String filename = RandomStringUtils.randomAlphanumeric(15);
                 filename = filename + ".jpg";
-                Imgcodecs.imwrite(filename, mat);
+
+                if  (mat.size() != null)
+                    Imgcodecs.imwrite(filename, mat);
+                else
+                    continue;
 
                 frames.add(filename);
 
@@ -115,27 +111,6 @@ public class VideoStreamerModule {
             }
 
             isCapturing = false;
-        }
-    }
-
-    /**
-     * Separate stream for number recognition.
-     */
-    class DetectFrame extends Thread {
-        @Override
-        public void run() {
-            for (String frame : frames) {
-                detectorModule.startDetecting(frame);
-
-                Car car = new Car();
-                car.setPlate(detectorModule.getDetectedPlate());
-                car.setConfidence(detectorModule.getConfidence());
-                car.setRecognizingTime(detectorModule.getProcessingTime());
-                car.setPicture(frame);
-                carDAO.saveCar(car);
-            }
-
-            detectorModule.stopAlpr();
         }
     }
 
@@ -183,49 +158,7 @@ public class VideoStreamerModule {
         this.continueStream = continueStream;
     }
 
-    public String getUrl() {
-        return url;
+    public ArrayList<String> getFrames() {
+        return frames;
     }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public BufferedImage getBufferedImage() {
-        return bufferedImage;
-    }
-
-// TODO: byteBuffer.
-    /*
-    public static ByteBuffer convertImageData(BufferedImage bi) {
-    ByteArrayOutputStream out = new ByteArrayOutputStream();
-    try {
-        ImageIO.write(bi, "png", out);
-        return ByteBuffer.wrap(out.toByteArray());
-    } catch (IOException ex) {
-        //
-    }
-    return null;
-}
-
-     */
-
-    //    @RequestMapping(value = "/api/get-streaming", method = RequestMethod.GET)
-//    public String getStreaming() {
-//        service = new DetectingService("C:\\Downloads\\Video\\vid.mp4");
-//        byte[] imageBytes = {};
-//
-//        BufferedImage bufferedImage = service.getStreaming();
-//
-//        try {
-//            ImageIO.write(bufferedImage,"png",new File("tmpImage.png"));
-//            imageBytes = Files.readAllBytes(Paths.get("tmpImage.png"));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        Base64.Encoder encoder = Base64.getEncoder();
-//
-//        return encoder.encodeToString(imageBytes);
-//    }
 }

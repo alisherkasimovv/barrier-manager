@@ -1,6 +1,7 @@
 package uz.barriermanager.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,18 +11,19 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 import uz.barriermanager.repositories.CarRepository;
 import uz.barriermanager.repositories.UserRepository;
+import uz.barriermanager.services.dao.interfaces.CarDAO;
 
 /**
  * Main controller class.
  *
  * @author Alisher Kasimov
- * @version 0.1.0046
+ * @version 0.1.0047
  */
 @Controller
 public class MainController {
 
     @Autowired
-    private CarRepository carRepository;
+    CarDAO carDAO;
 
     @Autowired
     private UserRepository userRepository;
@@ -29,7 +31,7 @@ public class MainController {
     @RequestMapping(value = {"/", "/index"}, name = "index")
     public ModelAndView index() {
         ModelAndView model = new ModelAndView("dashboard");
-        model.addObject("countCars", carRepository.findAllByDeletedIsFalse());
+        model.addObject("countCars", carDAO.getAll());
         model.addObject("countUsers", userRepository.findAllByDeletedIsFalse());
         model.addObject("contentHeader", "Dashboard");
         model.addObject("contentDescription", "Main page");

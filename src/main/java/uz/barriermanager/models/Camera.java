@@ -5,16 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Car DAO.
  *
  * @author Alisher Kasimov
- * @version 0.1.0046
+ * @version 0.1.0047
  */
 @Entity
 @Table(name = "cameras")
@@ -25,6 +22,7 @@ import javax.persistence.Table;
 public class Camera {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "c_id", columnDefinition = "serial")
     private int id;
 

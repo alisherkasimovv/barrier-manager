@@ -11,7 +11,7 @@ import java.util.List;
  * User DAO implementation.
  *
  * @author Alisher Kasimov
- * @version 0.1.0046
+ * @version 0.1.0047
  */
 public class UserDAOImpl implements UserDAO {
     @Autowired

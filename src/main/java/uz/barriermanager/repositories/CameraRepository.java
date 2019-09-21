@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Camera Repository.
  *
  * @author Alisher Kasimov
- * @version 0.1.0046
+ * @version 0.1.0047
  */
 @Service
 @Component("CameraRepository")
