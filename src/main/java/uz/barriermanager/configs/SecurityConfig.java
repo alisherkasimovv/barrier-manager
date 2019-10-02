@@ -24,7 +24,7 @@ import java.util.Arrays;
  * Spring Security configuration class.
  *
  * @author Alisher Kasimov
- * @version 0.1.0047
+ * @version 0.1.0055
  */
 @Configuration
 @EnableWebSecurity

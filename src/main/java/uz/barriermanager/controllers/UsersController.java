@@ -16,7 +16,7 @@ import java.util.List;
  * Users controller class.
  *
  * @author Alisher Kasimov
- * @version 0.1.0047
+ * @version 0.1.0055
  */
 @Controller
 @RequestMapping(value = "/users")

@@ -17,7 +17,7 @@ import uz.barriermanager.services.dao.interfaces.UserDAO;
  * Defining beans.
  *
  * @author Alisher Kasimov
- * @version 0.1.0047
+ * @version 0.1.0055
  */
 @Configuration
 public class ApplicationConfig {

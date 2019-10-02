@@ -11,11 +11,13 @@ import java.util.ArrayList;
  * Camera Repository.
  *
  * @author Alisher Kasimov
- * @version 0.1.0047
+ * @version 0.1.0055
  */
 @Service
 @Component("CameraRepository")
 public interface CameraRepository extends JpaRepository<Camera, Integer> {
     Camera getById(int id);
     ArrayList<Camera> findAll();
+    Camera getByCameraId(String id);
+    boolean existsByCameraId(String id);
 }

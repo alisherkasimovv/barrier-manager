@@ -1,0 +1,20 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--  -->
+    <!--<bean id="onStartupListener" class="uz.barriermanager.OnStartupListener" />-->
+    <bean id="cameraController" class="uz.barriermanager.controllers.CameraController" />
+    <!--<bean id="mainController" class="uz.barriermanager.controllers.MainController" />-->
+
+    <!-- DAO Beans -->
+    <bean id="carDAO" class="uz.barriermanager.services.dao.CarDAOImpl" />
+    <bean id="cameraDAO" class="uz.barriermanager.services.dao.CameraDAOImpl" />
+    <bean id="settingsDAO" class="uz.barriermanager.services.dao.SettingsDAOImpl" />
+    <bean id="userDAO" class="uz.barriermanager.services.dao.UserDAOImpl" />
+
+    <context:component-scan base-package="uz.barriermanager"/>
+</beans>

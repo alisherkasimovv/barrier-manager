@@ -1,14 +1,17 @@
 package uz.barriermanager.controllers;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import uz.barriermanager.models.Camera;
+import uz.barriermanager.services.dao.CameraDAOImpl;
 import uz.barriermanager.services.dao.interfaces.CameraDAO;
 
 import javax.validation.Valid;
@@ -18,7 +21,7 @@ import java.util.List;
  * Camera controller class.
  *
  * @author Alisher Kasimov
- * @version 0.1.0047
+ * @version 0.1.0055
  */
 @Controller
 @RequestMapping("/camera")
@@ -38,7 +41,7 @@ public class CameraController {
     }
 
     @GetMapping(value = "/get/{id}")
-    public ResponseEntity<Camera> getSelectedCamera(@Valid @RequestBody int id) {
+    public ResponseEntity<Camera> getSelectedCamera(@PathVariable int id) {
         return new ResponseEntity<>(cameraDAO.getOne(id), HttpStatus.OK);
     }
 

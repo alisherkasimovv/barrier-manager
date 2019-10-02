@@ -37,12 +37,12 @@ app.controller('CameraController', function ($scope, $http) {
         });
     };
 
-    $scope.getCamera = function () {
+    $scope.getCamera = function ($cam) {
         $http({
-            method: "POST",
-            url: "/camera/get/" + id
+            method: "GET",
+            url: "/camera/get/" + $cam.id
         }).then(function (response) {
-            $scope.item = response.data;
+            $scope.camera = response.data;
         });
     };
 
@@ -98,4 +98,40 @@ app.controller('DetectionController', function ($scope, $http) {
             $scope.cars = response.data;
         });
     };
+});
+
+app.controller('DriversController', function ($scope, $http) {
+    // function getRequest(id) {
+    //     //     return $http.get('/show-departure')
+    //     //         .success(function (response) {
+    //     //             $scope.departure = response.data;
+    //     //         })
+    //     //         .error(function (err) {});
+    //     // }
+    //     //
+    //     // var promise = $timeout();
+    //     //
+    //     // promise = promise.then(function() {
+    //     //     getRequest();
+    //     //     return $timeout(5000);
+    //     // });
+
+    // setTimeout(function() {
+    //     return $http.get('/show-departure')
+    //         .success(function(response) {
+    //             $scope.departure = response.data;
+    //         })
+    //         .error(function(err) {
+    //         })
+    // },10000);
+
+
+    setTimeout(function() {
+        $http({
+            method: "GET",
+            url: "/show-departure"
+        }).then(function (response) {
+            $scope.departure = response.data;
+        })
+    }, 5000);
 });

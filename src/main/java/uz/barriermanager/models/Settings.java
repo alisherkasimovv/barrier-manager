@@ -11,7 +11,7 @@ import javax.persistence.*;
  * Settings object for OpenALPR
  *
  * @author Alisher Kasimov
- * @version 0.1.0047
+ * @version 0.1.0055
  */
 @Entity
 @Table(name = "main_settings")
@@ -25,21 +25,21 @@ public class Settings {
     @Column(name = "s_id", columnDefinition = "serial")
     private int id;
 
-    @Column(name = "s_country", length = 10)
+    @Column(name = "country", length = 10)
     private String country;
 
-    @Column(name = "s_configs", length = 512)
+    @Column(name = "configs", length = 512)
     private String configs;
 
-    @Column(name = "s_runtime", length = 512)
+    @Column(name = "runtime", length = 512)
     private String runtime;
 
-    @Column(name = "s_shot_count")
+    @Column(name = "shot_count")
     private int streamShotCount;
 
-    @Column(name = "s_shot_interval")
+    @Column(name = "shot_interval")
     private int streamShotIntervalMs;
 
-    @Column(name = "s_price_per_hour")
+    @Column(name = "price_per_hour")
     private double price;
 }

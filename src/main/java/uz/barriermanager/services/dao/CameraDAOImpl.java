@@ -6,13 +6,14 @@ import uz.barriermanager.models.Camera;
 import uz.barriermanager.repositories.CameraRepository;
 import uz.barriermanager.services.dao.interfaces.CameraDAO;
 
+import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 
 /**
  * Implementation of CameraDAO interface.
  *
  * @author Alisher Kasimov
- * @version 0.1.0047
+ * @version 0.1.0055
  */
 public class CameraDAOImpl implements CameraDAO {
     @Autowired
@@ -21,17 +22,35 @@ public class CameraDAOImpl implements CameraDAO {
 
     @Override
     public ArrayList<Camera> getAll() {
+        if (repository.findAll() == null)
+            return null;
         return repository.findAll();
     }
 
     @Override
     public Camera getOne(int id) {
+        if (repository.getById(id) == null)
+            return null;
         return repository.getById(id);
     }
 
     @Override
+    public boolean isExist(String cameraId) {
+        return repository.existsByCameraId(cameraId);
+    }
+
+    @Override
+    public Camera getCamera(String id) {
+        return repository.getByCameraId(id);
+    }
+
+    @Override
     public void createCamera(Camera camera) {
-        repository.save(camera);
+        try {
+            repository.save(camera);
+        } catch (ConstraintViolationException e) {
+            e.getConstraintViolations();
+        }
     }
 
     @Override

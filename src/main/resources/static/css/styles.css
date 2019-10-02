@@ -1,3 +1,31 @@
+html, body, .container-table {
+    height: 100% !important;
+}
+
+.container-table {
+    display: table;
+}
+
+.vertical-center-row {
+    display: table-cell;
+    vertical-align: middle;
+}
+
 .user-panel {
     height: 4rem;
 }
+
+.drivers__table {
+    width: 100%;
+    font-size: 5rem;
+}
+
+.drivers__text {
+    font-size: 8rem;
+    font-weight: bolder;
+}
+
+/*.for-drivers {*/
+    /*height: 100%;*/
+    /*display: flex;*/
+/*}*/

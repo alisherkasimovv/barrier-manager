@@ -2,64 +2,38 @@ package uz.barriermanager.services.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import uz.barriermanager.models.Car;
 import uz.barriermanager.repositories.CarRepository;
 import uz.barriermanager.services.dao.interfaces.CarDAO;
+import uz.barriermanager.services.dao.interfaces.SettingsDAO;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Implementation of CarDAO interface.
  *
  * @author Alisher Kasimov
- * @version 0.1.0047
+ * @version 0.1.0055
  */
 public class CarDAOImpl implements CarDAO {
     @Autowired
     @Qualifier(value = "CarRepository")
     private CarRepository repository;
 
+//    @Autowired
+//    private SettingsDAO settingsDAO;
+
     @Override
     public List<Car> getAll() {
         return repository.findAll();
     }
 
-    @Override
-    public List<Car> getAllByPlate(String plate) {
-        return repository.findAllByPlate(plate);
-    }
-    /**
-     * In default, method is used for saving car according to its type.
-     * Checks car from database and saves it.
-     *
-     * @param car Detected car.
-     */
-    @Override
-    public void checkAndSaveCar(Car car) {
-        List<Car> all = getAllByPlate(car.getPlate());
-
-        if (!all.isEmpty()) {
-            for (Car item : all) {
-                if (item.getDateDeparture() == null) {
-                    System.out.println("\nSaving departure of the car");
-                    saveDeparture(item);
-                } else {
-                    System.out.println("\nSaving arrival of the car");
-                    saveArrival(car);
-                }
-            }
-        } else {
-            saveArrival(car);
-        }
-    }
-
-    private Car getOneCar(Car car) {
-        return repository.findCarByPlate(car.getPlate());
+    public Car getCar(String plateNumber) {
+        return repository.findFirstByPlateNumberOrderByIdDesc(plateNumber);
     }
 
     /**
@@ -67,9 +41,10 @@ public class CarDAOImpl implements CarDAO {
      *
      * @param car Newly created instance with plate, confidence and picture
      */
-    private void saveArrival(Car car) {
-        car.setDateArrival(LocalTime.now().toString());
-        car.setDepartured(false);
+    public void saveArrival(Car car) {
+        car.setDateArrival(LocalDateTime.now().toString());
+        car.setGone(false);
+        car.setLastDeparture(false);
         repository.save(car);
     }
 
@@ -79,16 +54,29 @@ public class CarDAOImpl implements CarDAO {
      *
      * @param car Detected car which's data will be saved like departure time.
      */
-    private void saveDeparture(Car car) {
-        car.setDateDeparture(LocalTime.now().toString());
-        car.setDepartured(true);
+    public Car saveDeparture(Car car) {
+        Car previous = repository.getByLastDepartureTrueAndGoneTrue();
+        if (previous != null) {
+            previous.setLastDeparture(false);
+            repository.save(previous);
+        }
+
+        car.setDateDeparture(LocalDateTime.now().toString());
+        car.setGone(true);
         car.setTimeSpent(
-                ChronoUnit.MINUTES.between(
-                        LocalTime.parse(car.getDateArrival()),
-                        LocalTime.parse(car.getDateDeparture()))
+                ChronoUnit.HOURS.between(
+                        LocalDateTime.parse(car.getDateArrival()),
+                        LocalDateTime.parse(car.getDateDeparture()))
         );
 
-        repository.save(car);
+        car.setCost((car.getTimeSpent() / 60) * 2000);// (long) settingsDAO.getPrice());
+        car.setLastDeparture(true);
+        return repository.save(car);
+    }
+
+    @Override
+    public Car getLastDeparture() {
+        return repository.getByLastDepartureTrue();
     }
 
     /**
@@ -101,10 +89,6 @@ public class CarDAOImpl implements CarDAO {
     public Car editCar(Car car) {
         Car temp = repository.getById(car.getId());
 
-        temp.setPlate(car.getPlate());
-        temp.setConfidence(car.getConfidence());
-        temp.setRecognizingTime(car.getRecognizingTime());
-        temp.setPicture(car.getPicture());
         return repository.save(temp);
     }
 }

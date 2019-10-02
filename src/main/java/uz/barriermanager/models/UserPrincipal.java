@@ -12,7 +12,7 @@ import java.util.Collections;
  * User principal class.
  *
  * @author Alisher Kasimov
- * @version 0.1.0047
+ * @version 0.1.0055
  */
 @Component("user-principal")
 public class UserPrincipal implements UserDetails {

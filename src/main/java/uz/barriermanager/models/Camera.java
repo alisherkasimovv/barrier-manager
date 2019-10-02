@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 
@@ -11,7 +12,7 @@ import javax.persistence.*;
  * Car DAO.
  *
  * @author Alisher Kasimov
- * @version 0.1.0047
+ * @version 0.1.0055
  */
 @Entity
 @Table(name = "cameras")
@@ -26,9 +27,23 @@ public class Camera {
     @Column(name = "c_id", columnDefinition = "serial")
     private int id;
 
-    @Column(name = "c_name")
+    @Nullable
+    @Column(name = "camera_id", unique = true)
+    private String cameraId;
+
+    @Nullable
+    @Column(name = "camera_name")
     private String name;
 
-    @Column(name = "c_url")
+    @Nullable
+    @Column(name = "camera_url")
     private String url;
+
+    @Nullable
+    @Column(name = "is_streaming")
+    private boolean isStreaming;
+
+    @Nullable
+    @Column(name = "camera_for_arrivals")
+    private boolean cameraForArrivals;
 }

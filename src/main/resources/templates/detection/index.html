@@ -30,23 +30,25 @@
                     <tr>
                         <th>ID</th>
                         <th>Plate number</th>
-                        <th>Confidence</th>
                         <th>Arrival time</th>
-                        <th>Time spent on parking</th>
+                        <th>Plate image</th>
                         <th>Departure time</th>
-                        <th>Image</th>
+                        <th>Plate image</th>
+                        <th>Is gone</th>
+                        <th>Time spent</th>
                     </tr>
                     <tr ng-repeat="car in cars">
                         <td>{{ car.id }}</td>
-                        <td>{{ car.plate }}</td>
-                        <td>{{ car.confidence }}</td>
+                        <td>{{ car.plateNumber }}</td>
                         <td>{{ car.dateArrival }}</td>
-                        <td>{{ car.timeSpent }}</td>
+                        <td><img ng-src="data:image/png;base64, {{car.pictureArrival}}" alt=""></td>
                         <td>
                             <span ng-if="car.dateDeparture == ''" class="label label-success">Car is in the parking</span>
                             <span>{{ car.dateDeparture }}</span>
                         </td>
-                        <td><img ng-src="data:image/png;base64, {{car.picture}}" alt=""></td>
+                        <td><img ng-src="data:image/png;base64, {{car.pictureDeparture}}" alt=""></td>
+                        <td>{{ car.gone }}</td>
+                        <td>{{ car.timeSpent }}</td>
                     </tr>
                 </table>
             </div>

@@ -33,14 +33,18 @@
                         <th>ID</th>
                         <th>Name</th>
                         <th>URL</th>
+                        <th>Camera ID</th>
+                        <th>Camera type</th>
                         <th>Actions</th>
                     </tr>
-                    <tr ng-repeat="camera in cameras">
-                        <td>{{ camera.id }}</td>
-                        <td>{{ camera.name }}</td>
-                        <td>{{ camera.url }}</td>
+                    <tr ng-repeat="cam in cameras">
+                        <td>{{ cam.id }}</td>
+                        <td>{{ cam.name }}</td>
+                        <td>{{ cam.url }}</td>
+                        <td>{{ cam.cameraId }}</td>
+                        <td>{{ cam.cameraForArrivals }}</td>
                         <td>
-
+                            <a ng-click="getCamera(cam)" class="btn btn-default">Edit camera</a>
                         </td>
                     </tr>
                 </table>
@@ -58,11 +62,18 @@
                 <div class="box-body">
                     <div class="form-group">
                         <label for="name">Camera name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Name" ng-model="camera.name">
+                        <input type="text" class="form-control" id="name" placeholder="Name" ng-model="camera.name" ng-value="camera.name">
                     </div>
                     <div class="form-group">
                         <label for="url">Camera URL</label>
-                        <input type="text" class="form-control" id="url" placeholder="URL" ng-model="camera.url">
+                        <input type="text" class="form-control" id="url" placeholder="URL" ng-model="camera.url" ng-value="camera.url">
+                    </div>
+                    <div class="form-group">
+                        <label for="cameraForArrivals">Camera type</label>
+                        <select name="cameraForArrivals" id="cameraForArrivals" ng-model="camera.cameraForArrivals">
+                            <option value="false">Camera is for departure</option>
+                            <option value="true">Camera is for arrival</option>
+                        </select>
                     </div>
                 </div>
                 <!-- /.box-body -->

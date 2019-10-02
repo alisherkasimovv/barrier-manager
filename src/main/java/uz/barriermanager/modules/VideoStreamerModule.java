@@ -23,7 +23,7 @@ import java.util.ArrayList;
  * Class works for capturing from stream and returning ImageBuffer.
  *
  * @author Alisher Kasimov
- * @version 0.1.0047
+ * @version 0.1.0055
  */
 public class VideoStreamerModule {
 

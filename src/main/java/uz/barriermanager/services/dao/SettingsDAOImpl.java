@@ -9,15 +9,25 @@ import uz.barriermanager.services.dao.interfaces.SettingsDAO;
  * Implementation of SettingsDAO interface.
  *
  * @author Alisher Kasimov
- * @version 0.1.0047
+ * @version 0.1.0055
  */
 public class SettingsDAOImpl implements SettingsDAO {
     @Autowired
     SettingsRepository repository;
 
     @Override
+    public void saveSettings(Settings settings) {
+        repository.save(settings);
+    }
+
+    @Override
     public Settings getSettings() {
         return repository.findById(1);
+    }
+
+    @Override
+    public double getPrice() {
+        return repository.findById(1).getPrice();
     }
 
     @Override

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" th:href="@{/webjars/AdminLTE/2.4.0/bower_components/bootstrap/dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/AdminLTE/2.4.0/bower_components/font-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/AdminLTE/2.4.0/bower_components/Ionicons/css/ionicons.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/AdminLTE/2.4.0/dist/css/AdminLTE.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/AdminLTE/2.4.0/dist/css/skins/skin-blue.min.css}">
+    <link rel="stylesheet" th:href="@{css/styles.css}">
+</head>
+<body class="text-center" ng-app="barrierManager">
+
+<div ng-controller="DriversController" class="container container-table">
+    <div class="row vertical-center-row">
+        <div class="text-center col-md-12 col-xs-12">
+            <h1 class="text-center drivers__text">{{ departure.plateNumber }}</h1>
+            <table class="table table-borderless drivers__table">
+                <tr>
+                    <td><img ng-src="data:image/png;base64, {{departure.pictureArrivalFull}}" alt=""></td></td>
+                    <td><img ng-src="data:image/png;base64, {{departure.pictureDepartureFull}}" alt=""></td></td>
+                </tr>
+                <tr>
+                    <td>{{ departure.dateArrival }}</td>
+                    <td>{{ departure.dateDeparture }}</td>
+                </tr>
+                <tr>
+                    <td>Cost</td>
+                    <td>
+                        <h1 class="text-center drivers__text">{{ departure.cost }}</h1>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Time spent</td>
+                    <td><h3 class="text-center drivers__text">{{ departure.timeSpent }}</h3></td>
+
+                </tr>
+            </table>
+
+
+        </div>
+    </div>
+</div>
+
+
+<div th:insert="~{partials/scripts :: section__scripts}"></div>
+</body>
+</html>

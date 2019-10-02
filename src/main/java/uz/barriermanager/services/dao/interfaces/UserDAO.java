@@ -8,7 +8,7 @@ import java.util.List;
  * User DAO.
  *
  * @author Alisher Kasimov
- * @version 0.1.0047
+ * @version 0.1.0055
  */
 public interface UserDAO {
     List<User> getAll();
